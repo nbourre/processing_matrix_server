@@ -1,0 +1,15 @@
+
+class UnknownCommand implements Command {
+  
+  UnknownCommand () {
+  }
+  
+  
+  void execute() {
+    println ("Unknown command!");
+  }
+  
+  public void execute(Display d, JSONData jd){
+    println ("Unknown command!");
+  }
+}
