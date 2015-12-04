@@ -7,6 +7,7 @@ Server server;
 
 // TEST de commentaire
 // Commentaire #2 Nick
+// Test lamyot
 
 int port = 32999;
 
@@ -72,7 +73,7 @@ void draw () {
   
   display.run();
 }
-
+ //<>//
 void initCommandMap () {
   commandMap = new HashMap<String, Command>(); //<>//
   
