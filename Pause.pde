@@ -1,15 +1,14 @@
 class Pause implements Command {
-  Display d;
   
-  Pause (Display d) {
-    this.d = d;
+  
+  Pause () {
+ 
   }
   
   
-  void execute() {
+  void execute(Device d, JSONData jd) {
     d.setPause(true);
   }
   
-  public void execute(Display d, JSONData jd){
-  }
+  
 }

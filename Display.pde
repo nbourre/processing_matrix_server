@@ -14,9 +14,9 @@ class Display {
   int matHeight = 64;
   
   boolean pause = false;
-  
-  Display() {
-    
+  String name; //lyne
+  Display(String _name) {
+    name=_name; //lyne pour afficher sur ecran pour faire les commandes
     background(50);
     fill (200);
     
@@ -65,11 +65,20 @@ class Display {
     
     if (matrices.isEmpty()) {
       mat.display();
-    } else {
-      matrices.get(currentMatIndex).display();
+    } else { matrices.get(currentMatIndex).display();
     }    
   }
-  
+  void pushData(JSONData jd)
+  {// valider les informations sur la matrice
+ 
+      Matrix  m=new Matrix(jd.cols,jd.rows); //enleve pour test
+     //  Matrix  m=new Matrix(7,7); // pour tester lyne
+     
+      addMatrix(m);
+    
+      m.update(jd.data);
+    // m.updatetest(jd.data); // pour test lyne
+  }
   void addMatrix(Matrix m) {
     matrices.add(m);
   }

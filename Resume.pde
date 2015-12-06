@@ -1,15 +1,15 @@
 class Resume implements Command {
-  Display d;
+
   
-  Resume (Display d) {
-    this.d = d;
+  Resume () {
+    
   }
   
   
-  void execute() {
+  void execute(Device d,JSONData jd) {
     d.setPause(false);
   }
   
-  public void execute(Display d, JSONData jd){
-  }
+
+  
 }

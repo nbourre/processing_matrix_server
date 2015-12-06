@@ -12,6 +12,8 @@ class JSONData {
   int bytePerPixel;
   int rows;
   int cols;
+  String device;
+  String display;
   
   JSONData (String js) {
     this.jsonString = js;
@@ -26,7 +28,9 @@ class JSONData {
     args = json.hasKey("command") ? json.getString("command").split(" ") : null;
     
     command = args != null ? args[0] : null;
-      
+   //lyne
+    device=  json.hasKey ("device") ? json.getString("device") : null;
+    display=json.hasKey ("display") ? json.getString("display") : null;
     data = json.hasKey ("data") ? json.getString("data") : null;
     
     bytePerPixel = json.hasKey ("bytePerPixel") ? json.getInt("bytePerPixel") : 0;
