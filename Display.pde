@@ -68,8 +68,10 @@ class Display {
     } else { matrices.get(currentMatIndex).display();
     }    
   }
-  void pushData(JSONData jd)
-  {// valider les informations sur la matrice
+  
+  void pushData(JSONData jd) {
+    
+    // valider les informations sur la matrice
  
       Matrix  m=new Matrix(jd.cols,jd.rows); //enleve pour test
      //  Matrix  m=new Matrix(7,7); // pour tester lyne
@@ -79,6 +81,7 @@ class Display {
       m.update(jd.data);
     // m.updatetest(jd.data); // pour test lyne
   }
+  
   void addMatrix(Matrix m) {
     matrices.add(m);
   }
