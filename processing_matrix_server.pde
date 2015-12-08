@@ -52,10 +52,6 @@ void draw() {
       if (data != null) {
         data = data.replaceAll("~", "");
 
-
-        println(data);
-
-
         json = new JSONData(data);
 
         if (json.command != null) {

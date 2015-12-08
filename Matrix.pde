@@ -99,7 +99,35 @@ class Matrix {
          this.setCellColor(i, j, color (random(1)));
   }
   
-  
+   void updateLyne (String data) {
+     String rawData[] = data.split(" ");
+     
+     
+    for (int j = 0; j < rows; j++) {
+      
+      
+      
+      for (int i = 0; i < cols; i++) {
+        
+        
+        
+        if (bytePerPixel == 3) {
+          
+          this.setCellColor(i, j, color (parseInt(rawData [(cols*j+i)*3]), // R
+                                         parseInt(rawData [(cols*j+i)*3 + 1]), // G
+                                         parseInt(rawData [(cols*j+i)*3 + 2]))); // B
+          
+          i+=2;
+                                         
+                                        
+        } else {
+          
+          this.setCellColor(i, j, color (parseInt(rawData [cols*j+i])));
+        }
+        
+      }
+    }
+  }
     void update (String data) {
      String rawData[] = data.split(" ");
      
@@ -116,11 +144,15 @@ class Matrix {
         
         if (bytePerPixel == 3) {
           
-          this.setCellColor(i, j, color (parseInt(rawData [currentIndex]), // R
-                                         parseInt(rawData [currentIndex + 1]), // G
-                                         parseInt(rawData [currentIndex + 2]))); // B
+          //this.setCellColor(i, j, color (0, 0, 0)); // B
           
-          i+=2;
+          int R = int(rawData [currentIndex]);
+          int G = int(rawData [currentIndex + 1]);
+          int B = int(rawData [currentIndex + 2]);
+          
+          this.setCellColor(i, j, color (R, G, B));
+          
+          //print ("Index : " + currentIndex + " : " + R + " " + G + " " + B + "-");
                                          
                                         
         } else {
