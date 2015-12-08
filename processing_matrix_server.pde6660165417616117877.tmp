@@ -71,9 +71,9 @@ void draw() {
         client.clear();
       }
     }
-
   }
 
+  // display.run();
   // listKeysDeviceMap=deviceMap.keySet();  // Obtenir la liste des clés
   // itDeviceMap=listKeysDeviceMap.iterator();
   // Parcourir les clés et faire run pour tous device;
@@ -87,10 +87,10 @@ void draw() {
 }
 //<>//
 void initCommandMap() {
-  commandMap = new HashMap < String, Command > (); //<>//
-  //<>// //<>//
+  commandMap = new HashMap < String, Command > ();
+  //<>//
   commandMap.put("flush", new Flush());
-  commandMap.put("pause", new Pause()); //<>// //<>//
+  commandMap.put("pause", new Pause()); //<>//
   commandMap.put("resume", new Resume());
   commandMap.put("pushdata", new PushData());
 }
@@ -111,13 +111,6 @@ void keyPressed() {
   }
 
   if (key == 'p') {
-    
-    // JSON minimal
-    JSONObject jsonObj = new JSONObject();
-    jsonObj.setString("command", "pause");
-    
-    json = new JSONData(jsonObj.toString());
-    
     // TEST DE LA COMMANDE
     // String jsonstring = "{pushdata } ";//" {""command"" : ""pushdata"", ""device"": ""d1"",""display"" : ""di1"", ""bytePerPixel"" : 1,""rows"": 57,""cols"" : 1, ""data"" : ""1 0 1 0 1 0 1 0 1 0 1 0"" }";
     //String jsonstring = " {""command"" : ""pushdata"", ""device"": ""d1"",""display"" : ""di1"", ""bytePerPixel"" : 1,""rows"": 57,""cols"" : 1, ""data"" : ""1 0 1 0 1 0 1 0 1 0 1 0"" }";

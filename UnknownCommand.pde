@@ -9,7 +9,7 @@ class UnknownCommand implements Command {
     println ("Unknown command!");
   }
   
-  public void execute(Display d, JSONData jd){
+  public void execute(Device d, JSONData jd){
     println ("Unknown command!");
   }
 }

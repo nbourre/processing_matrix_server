@@ -1,14 +1,13 @@
 class Flush implements Command {
-  Display display;
+ 
   
-  Flush (Display d) {
-    display = d;
+  Flush () {
+   
   }
   
-  void execute() {
-    display.flushQueue();
+  void execute( Device d, JSONData jd) {
+   d.flushQueue(jd.display);
   }
   
-  public void execute(Display d, JSONData jd){
-  }
+  
 }

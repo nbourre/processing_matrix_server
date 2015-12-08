@@ -70,9 +70,19 @@ class Matrix {
     cells.get(j).get(i).setFillColor(c);
   }
   
-  void update (String data) {
-    String _rows[] = data.split("\n");
-    
+  
+  // cette méthode est un test a enlever a la fin
+  void updatetest (String data) {
+   
+           
+    for (int j=0;j<7;j++)
+       for (int i=0;i<7;i++)
+         this.setCellColor(i, j, color (random(1)));
+  }
+  
+  
+    void update (String data) {
+     String _rows[]=data.split("\n");
     for (int j = 0; j < _rows.length; j++) {
       
       String currentRow[] = _rows[j].split(" ");
