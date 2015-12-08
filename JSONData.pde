@@ -28,10 +28,16 @@ class JSONData {
     args = json.hasKey("command") ? json.getString("command").split(" ") : null;
     
     command = args != null ? args[0] : null;
+<<<<<<< HEAD
     
    //lyne
     device = json.hasKey ("device") ? json.getString("device") : null;
     display = json.hasKey ("display") ? json.getString("display") : null;
+=======
+   //lyne
+    device=  json.hasKey ("device") ? json.getString("device") : null;
+    display=json.hasKey ("display") ? json.getString("display") : null;
+>>>>>>> 322e521a9c06f107dc4022378293e97dabeae6ab
     data = json.hasKey ("data") ? json.getString("data") : null;
     
     bytePerPixel = json.hasKey ("bytePerPixel") ? json.getInt("bytePerPixel") : 0;

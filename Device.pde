@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 /**
   Représente un périphérique physique tel un moniteur ou un téléphone.
 */
 
+=======
+>>>>>>> 322e521a9c06f107dc4022378293e97dabeae6ab
 class Device {
   Map < String, Display > displayMap;
   Set listKeysDisplayMap; //lyne
