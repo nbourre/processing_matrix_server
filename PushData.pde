@@ -8,8 +8,7 @@ class PushData implements Command {
   // TODO : Comment pousser de la données
   
   
-  public void execute(Device d, JSONData jd){
-                 
-            println ("pushdata : " + jd.command + jd.device);
-          d.pushData(jd); }
+  public void execute(Device d, JSONData jd) {
+    d.pushData(jd);
+  }
 }
