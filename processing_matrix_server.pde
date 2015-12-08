@@ -59,8 +59,7 @@ void draw() {
         json = new JSONData(data);
 
         if (json.command != null) {
-          println("command : " + json.command);
-          println("pushdata : " + json.command + json.device);
+          println ("Nb elements : " + json.data.split (" ").length);
           // pourrait-on avoir un objet qui contient tout le jason sauf la string de départ pour passer à execute?
           commandMap.get(json.command).execute(deviceMap.get(json.device), json); //ajouter des try catch
 
@@ -85,7 +84,7 @@ void draw() {
   //    DeviceMap.get(key);
   //   }
 
-  deviceMap.get("d1").run(); // en placer un par défaut dans le jdson
+  deviceMap.get("0").run(); // en placer un par défaut dans le jdson
 }
 //<>//
 void initCommandMap() {
@@ -94,14 +93,14 @@ void initCommandMap() {
   commandMap.put("flush", new Flush());
   commandMap.put("pause", new Pause()); //<>// //<>//
   commandMap.put("resume", new Resume());
-  commandMap.put("pushdata", new PushData());
+  commandMap.put("pushData", new PushData());
 }
 
 
 void initDeviceMap() {
   deviceMap = new HashMap < String, Device > ();
 
-  deviceMap.put("d1", new Device("d1")); // attention , comment savoir si on peut en ajouter?
+  deviceMap.put("0", new Device("0")); // attention , comment savoir si on peut en ajouter?
 }
 
 

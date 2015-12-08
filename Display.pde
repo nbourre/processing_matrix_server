@@ -61,7 +61,10 @@ class Display {
         displayInterval = matrices.get(currentMatIndex).interval;
         
         // Action
-        currentMatIndex = currentMatIndex % matrices.size() + 1;
+        
+        currentMatIndex++;
+        if (currentMatIndex > matrices.size() - 1)
+          currentMatIndex = 0;
       }
     }
   }
@@ -71,7 +74,8 @@ class Display {
     
     if (matrices.isEmpty()) {
       mat.display();
-    } else { matrices.get(currentMatIndex).display();
+    } else {
+      matrices.get(currentMatIndex).display();
     }    
   }
   
@@ -79,7 +83,7 @@ class Display {
     
     // valider les informations sur la matrice
  
-      Matrix  m=new Matrix(jd.cols,jd.rows); //enleve pour test
+      Matrix  m=new Matrix(jd.cols,jd.rows, jd.bytePerPixel); //enleve pour test
      //  Matrix  m=new Matrix(7,7); // pour tester lyne
      
       addMatrix(m);
@@ -97,6 +101,7 @@ class Display {
   }
   
   void flushQueue() {
+    currentMatIndex = 0;
     matrices.clear();
   }
   

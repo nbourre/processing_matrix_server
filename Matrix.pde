@@ -23,8 +23,25 @@ class Matrix {
     cellWidth = width / cols;
     cellHeight = height / rows;
     
+    
+    
     init();
   }      
+  
+  Matrix (int nbRows, int nbColumns, int bpp) {
+    x = 0;
+    y = 0;
+    
+    cols = nbColumns;
+    rows = nbRows;
+    bytePerPixel = bpp;
+    
+    cellWidth = width / cols;
+    cellHeight = height / rows;
+    
+    
+    init();
+  }
   
   void init() {
     
@@ -39,6 +56,8 @@ class Matrix {
         cells.get(j).add (temp);
       }
     }
+    
+    println ("rows : " + rows + " -- cols : " + cols);
   }
   
   void displayRow (int j) {
@@ -82,19 +101,31 @@ class Matrix {
   
   
     void update (String data) {
-     String _rows[]=data.split("\n");
-    for (int j = 0; j < _rows.length; j++) {
+     String rawData[] = data.split(" ");
+     
+     int currentStep = 0; 
+     int currentIndex = 0;
+     
+    for (int j = 0; j < rows; j++) {
       
-      String currentRow[] = _rows[j].split(" ");
+      currentStep = j * cols* bytePerPixel;
       
-      for (int i = 0; i < currentRow.length; i++) {
+      for (int i = 0; i < cols; i++) {
+        
+        currentIndex = currentStep + i;
         
         if (bytePerPixel == 3) {
-          this.setCellColor(i, j, color (parseInt(currentRow[i++]),
-                                         parseInt(currentRow[i++]),
-                                         parseInt(currentRow[i])));
+          
+          this.setCellColor(i, j, color (parseInt(rawData [currentIndex]), // R
+                                         parseInt(rawData [currentIndex + 1]), // G
+                                         parseInt(rawData [currentIndex + 2]))); // B
+          
+          i+=2;
+                                         
+                                        
         } else {
-          this.setCellColor(i, j, color (parseInt(currentRow[i])));
+          
+          this.setCellColor(i, j, color (parseInt(rawData [currentIndex])));
         }
         
       }
