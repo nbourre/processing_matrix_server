@@ -2,10 +2,6 @@ import processing.net.*;
 import java.util.Map;
 import java.util.Set; //lyne
 import java.util.Iterator; //lyne
-<<<<<<< HEAD
-=======
-//Display display;lyne
->>>>>>> 322e521a9c06f107dc4022378293e97dabeae6ab
 
 Server server;
 
@@ -25,22 +21,12 @@ int dataInterval = 50;
 int dataAcc = 0;
 int deltaTime = 0;
 int previousTime = 0;
-<<<<<<< HEAD
 
-
-=======
-int cpt = 1; //test
->>>>>>> 322e521a9c06f107dc4022378293e97dabeae6ab
 void setup() {
   //fullScreen();
   size(640, 480);
 
   server = new Server(this, port);
-<<<<<<< HEAD
-=======
-
-  //display = new Display();  lyne maintenant un map de device et le device va crer ses display
->>>>>>> 322e521a9c06f107dc4022378293e97dabeae6ab
 
   initCommandMap();
   initDeviceMap();
@@ -61,20 +47,14 @@ void draw() {
       dataAcc = 0;
 
       //data = client.readString();
-<<<<<<< HEAD
       data = client.readStringUntil('~'); // Le ~ permet d'indiquer au serveur la fin des données envoyé par le client
-=======
-      data = client.readStringUntil('~'); // Le ~ permet d'indiques au serveur la fin des données envoyé par le client
->>>>>>> 322e521a9c06f107dc4022378293e97dabeae6ab
 
       if (data != null) {
         data = data.replaceAll("~", "");
 
-<<<<<<< HEAD
-        //println(data);
-=======
+
         println(data);
->>>>>>> 322e521a9c06f107dc4022378293e97dabeae6ab
+
 
         json = new JSONData(data);
 
@@ -95,10 +75,7 @@ void draw() {
 
   }
 
-<<<<<<< HEAD
-=======
-  // display.run();
->>>>>>> 322e521a9c06f107dc4022378293e97dabeae6ab
+
   // listKeysDeviceMap=deviceMap.keySet();  // Obtenir la liste des clés
   // itDeviceMap=listKeysDeviceMap.iterator();
   // Parcourir les clés et faire run pour tous device;
@@ -118,7 +95,6 @@ void initCommandMap() {
   commandMap.put("pause", new Pause()); //<>// //<>//
   commandMap.put("resume", new Resume());
   commandMap.put("pushdata", new PushData());
-<<<<<<< HEAD
 }
 
 
@@ -126,23 +102,10 @@ void initDeviceMap() {
   deviceMap = new HashMap < String, Device > ();
 
   deviceMap.put("d1", new Device("d1")); // attention , comment savoir si on peut en ajouter?
-
 }
 
 
-=======
-}
 
-
-void initDeviceMap() {
-  deviceMap = new HashMap < String, Device > ();
-
-  deviceMap.put("d1", new Device("d1")); // attention , comment savoir si on peut en ajouter?
-
-}
-
-
->>>>>>> 322e521a9c06f107dc4022378293e97dabeae6ab
 void keyPressed() {
   if (key == ' ') {
     deviceMap.get("d1").setPause(!(deviceMap.get("d1").getPause()));
@@ -150,7 +113,7 @@ void keyPressed() {
   }
 
   if (key == 'p') {
-<<<<<<< HEAD
+
     
     // JSON minimal
     JSONObject jsonObj = new JSONObject();
@@ -158,8 +121,7 @@ void keyPressed() {
     
     json = new JSONData(jsonObj.toString());
     
-=======
->>>>>>> 322e521a9c06f107dc4022378293e97dabeae6ab
+
     // TEST DE LA COMMANDE
     // String jsonstring = "{pushdata } ";//" {""command"" : ""pushdata"", ""device"": ""d1"",""display"" : ""di1"", ""bytePerPixel"" : 1,""rows"": 57,""cols"" : 1, ""data"" : ""1 0 1 0 1 0 1 0 1 0 1 0"" }";
     //String jsonstring = " {""command"" : ""pushdata"", ""device"": ""d1"",""display"" : ""di1"", ""bytePerPixel"" : 1,""rows"": 57,""cols"" : 1, ""data"" : ""1 0 1 0 1 0 1 0 1 0 1 0"" }";
