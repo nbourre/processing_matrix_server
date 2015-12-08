@@ -128,32 +128,28 @@ class Matrix {
       }
     }
   }
-    void update (String data) {
-     String rawData[] = data.split(" ");
-     
-     int currentStep = 0; 
-     int currentIndex = 0;
-     
+  void update (String data) {
+    String rawData[] = data.split(" ");
+    
+    int currentStep = 0; 
+    int currentIndex = 0;
+        
     for (int j = 0; j < rows; j++) {
       
-      currentStep = j * cols* bytePerPixel;
+      currentStep = j * cols;
       
       for (int i = 0; i < cols; i++) {
         
-        currentIndex = currentStep + i;
+        currentIndex = (currentStep + i) * bytePerPixel;
         
         if (bytePerPixel == 3) {
-          
-          //this.setCellColor(i, j, color (0, 0, 0)); // B
-          
+                    
           int R = int(rawData [currentIndex]);
           int G = int(rawData [currentIndex + 1]);
           int B = int(rawData [currentIndex + 2]);
           
           this.setCellColor(i, j, color (R, G, B));
-          
-          //print ("Index : " + currentIndex + " : " + R + " " + G + " " + B + "-");
-                                         
+                                                   
                                         
         } else {
           
