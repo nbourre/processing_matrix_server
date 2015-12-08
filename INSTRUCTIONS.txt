@@ -1,0 +1,31 @@
+Cette application permet à une seconde application client de se connecter et d'envoyer des matrices de données qui représente qui sont ensuite représenté en tant que pixel art.
+
+Les données reçues doivent être en format JSON et le stream d'envoie doit terminer avec le caractère "~".
+
+Propriétés du JSON
+
+command :
+	type : String
+	Description : Les commandes possibles sont pushData, flush, pause, resume
+
+bytePerPixel :
+	type : int
+	Description : Nombre d'octets par pixel soit 1 ou 3
+	
+cols :
+	type : int
+	Description : Nombre de colonnes
+
+rows :
+	type : int
+	Description : Nombre de rangées
+	
+data :
+	type : String
+	Description : 	Chaîne de données en String qui représente la valeur de chaque pixel.
+					Chaque valeur est séparée par un espace " ".
+					La dimension de la chaîne est la cols x rows x bytePerPixel.
+	Exemple : 	"127 0 255" si bytePerPixel = 1 donne 3 pixels avec respectivement 127, 0 et 255 comme valeur.
+							si bytePerPixel = 3 donne 1 pixel avec la couleur RGB (127, 0, 255).
+							
+
