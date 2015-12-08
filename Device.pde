@@ -22,12 +22,12 @@ class Device {
   void InitDisplayMap() {
     displayMap = new HashMap < String, Display > ();
 
-    displayMap.put("di1", new Display("di1")); // attention , gerer les dimension a partir du device si plusieurs
+    displayMap.put("0", new Display("0")); // attention , gerer les dimension a partir du device si plusieurs
   }
   
   void run() {
     if (pause) return;
-    displayMap.get("di1").run(); // ne faire qu'un seul affichage par fenetre pour le depart // comment orendre le premier?
+    displayMap.get("0").run(); // ne faire qu'un seul affichage par fenetre pour le depart // comment orendre le premier?
   }
 
   void pushData( JSONData jd) {

@@ -31,12 +31,12 @@ class JSONData {
 
     
    //lyne
-    device = json.hasKey ("device") ? json.getString("device") : null;
-    display = json.hasKey ("display") ? json.getString("display") : null;
+    device = json.hasKey ("device") ? json.getString("device") : "0";
+    display = json.hasKey ("display") ? json.getString("display") : "0";
 
     data = json.hasKey ("data") ? json.getString("data") : null;
     
-    bytePerPixel = json.hasKey ("bytePerPixel") ? json.getInt("bytePerPixel") : 0;
+    bytePerPixel = json.hasKey ("bytePerPixel") ? json.getInt("bytePerPixel") : 1;
     
     rows = json.hasKey ("rows") ? json.getInt("rows") : 0;
     cols = json.hasKey ("cols") ? json.getInt("cols") : 0;
