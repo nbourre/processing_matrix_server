@@ -21,7 +21,7 @@ int previousTime = 0;
 int deltaTime = 0;
 
 String ipAddress = "127.0.0.1";
-//String ipAddress = "192.168.0.200";
+//String ipAddress = "10.10.50.65";
 
 int port = 32999;
 
@@ -42,6 +42,8 @@ void setup() {
   
   buildArray();
   
+  json.setString ("command", "pushData");
+  c.write(json.toString() + "~");
 }
 
 void draw(){
@@ -49,6 +51,7 @@ void draw(){
   previousTime = millis();
   
   messageAcc += deltaTime;
+  
   
 }
 
@@ -76,38 +79,63 @@ void keyPressed() {
       c.run();
     }
     
+    if (key == 's') {
+      json.setString ("command", "pushData");
+      c.write(json.toString() + "~");
+    }
+    
     if (key == 'q') {
       exit();
+    }
+    
+    if (key == 'f') {
+      json.setString ("command", "flush");
+      c.write(json.toString() + "~");
     }
   }
 }
 
 void buildArray() {
   String data = "";
+  int bpp = 3;
+  
   for(int j = 0; j < matrixHeight; j++){
-   int vStep = j * matrixWidth;
+   int vStep = j * matrixWidth * 3;
    for(int i = 0; i < matrixWidth; i++){
-     float value = float(vStep + i) / maxIndex; // Valeur entre 0 et 1
      
+     int R = int(float(i) / matrixWidth * 255); // Valeur entre 0 et 1
+     int G = int(float(i * j) / maxIndex * 255) ; // Valeur entre 0 et 1
+     int B = int(float(j) / matrixHeight * 255); // Valeur entre 0 et 1
+     
+     data += R + " "; // R
+     data += G + " "; // G
+     data += B + " "; // B
+     /**
      if ( i == matrixWidth / 2) {
-       data += 255 + " ";
-       data += 255 + " ";
-       data += 255 + " ";
+       data += 255 + " "; // R
+       data += 255 + " "; // G
+       data += 255 + " "; // B
+
      } else {
        data += 0 + " ";
        data += 0 + " ";
        data += 0 + " ";
      }
+     
+     */
    }   
   }
   
-  json.setInt("bytePerPixel",3);
+  json.setInt("bytePerPixel", bpp);
   json.setString("data",data);
   
+  json.setInt ("cols", matrixWidth);
+  json.setInt ("rows", matrixHeight);
   
   println ("Array built");
-  println (json.getString("command"));
+  println ("command : " + json.getString("command"));
   
+  println ("Nb Elements = " + data.split(" ").length);
   
   //println (json.toString());
 }
