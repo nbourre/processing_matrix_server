@@ -11,5 +11,5 @@ class PushData implements Command {
   public void execute(Device d, JSONData jd){
                  
             println ("pushdata : " + jd.command + jd.device);
-          d.pushData(jd.display,jd); }
+          d.pushData(jd); }
 }

@@ -30,8 +30,8 @@ class Device {
     displayMap.get("di1").run(); // ne faire qu'un seul affichage par fenetre pour le depart // comment orendre le premier?
   }
 
-  void pushData(String display, JSONData jd) {
-    displayMap.get(display).pushData(jd); // try catch
+  void pushData( JSONData jd) {
+    displayMap.get(jd.display).pushData(jd); // try catch
     // displayMap.get("di1").pushData(jd); // pour tester 
   }
 
@@ -39,8 +39,8 @@ class Device {
 
 
 
-  void flushQueue(String display) {
-    displayMap.get(display).flushQueue(); // try catch
+  void flushQueue(JSONData jd) {
+    displayMap.get(jd.display).flushQueue(); // try catch
   }
 
   void clear() {

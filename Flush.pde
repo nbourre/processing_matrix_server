@@ -6,7 +6,7 @@ class Flush implements Command {
   }
   
   void execute( Device d, JSONData jd) {
-   d.flushQueue(jd.display);
+   d.flushQueue(jd);
   }
   
   

@@ -85,7 +85,7 @@ void draw() {
   //    DeviceMap.get(key);
   //   }
 
-  deviceMap.get("d1").run();
+  deviceMap.get("d1").run(); // en placer un par défaut dans le jdson
 }
 //<>//
 void initCommandMap() {
@@ -114,7 +114,7 @@ void keyPressed() {
 
   if (key == 'p') {
 
-    
+     println ("pushdata : " );
     // JSON minimal
     JSONObject jsonObj = new JSONObject();
     jsonObj.setString("command", "pause");
@@ -138,8 +138,8 @@ void keyPressed() {
 
     //    if (json.command != null) {
     //     println("command : " + json.command);
-    //        println ("pushdata : " + json.command + json.device);
-    //     commandMap.get("pushdata").execute(  deviceMap.get("d1"), json); //ajouter des try catch pour tests direct
+            println ("pushdata : " + json.command );
+        commandMap.get("pushdata").execute(  deviceMap.get("d1"), json); //ajouter des try catch pour tests direct
 
     //   } else {
     //     println ("unknown command : " + json.command);
