@@ -16,11 +16,15 @@ class Display {
   int displayAcc = 0;
   int previousTime = 0;
   
+  Message msg; // Message à afficher à l'écran
+  int messageAcc = 0; // Variable pour afficher des messages.
+  
   int matWidth = 64;
   int matHeight = 64;
   
   boolean pause = false;
   String name; //lyne
+  
   Display(String _name) {
     name=_name; //lyne pour afficher sur ecran pour faire les commandes
     background(50);
@@ -29,7 +33,8 @@ class Display {
     matrices = new ArrayList<Matrix>();
     
     mat = new Matrix(matWidth, matHeight);
-
+    
+    msg = new Message("");
   }  
   
   void run () {
@@ -42,6 +47,7 @@ class Display {
   
   void update(float deltaTime) {
     displayAcc += deltaTime;
+    messageAcc += deltaTime;
     
     if (pause) return;
     

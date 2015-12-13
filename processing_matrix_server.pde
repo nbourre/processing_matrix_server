@@ -3,6 +3,8 @@ import java.util.Map;
 import java.util.Set; //lyne
 import java.util.Iterator; //lyne
 
+static final String UNKNOWN = "unknown";
+
 Server server;
 
 int port = 32999;
@@ -46,7 +48,6 @@ void draw() {
     if (dataAcc >= dataInterval) {
       dataAcc = 0;
 
-      //data = client.readString();
       data = client.readStringUntil('~'); // Le ~ permet d'indiquer au serveur la fin des données envoyé par le client
 
       if (data != null) {
@@ -57,7 +58,15 @@ void draw() {
         if (json.command != null) {
           println ("Nb elements : " + json.data.split (" ").length);
           // pourrait-on avoir un objet qui contient tout le jason sauf la string de départ pour passer à execute?
-          commandMap.get(json.command).execute(deviceMap.get(json.device), json); //ajouter des try catch
+          Command cmd = commandMap.get(json.command);
+          
+          /* On capture la commande null ici */
+          if (cmd == null) {
+            cmd = commandMap.get(UNKNOWN);
+          } 
+          
+          cmd.execute(deviceMap.get(json.device), json); //ajouter des try catch
+            
 
         } else {
           println("unknown command : " + json.command);
@@ -82,6 +91,7 @@ void draw() {
 
   deviceMap.get("0").run(); // en placer un par défaut dans le jdson
 }
+
 //<>//
 void initCommandMap() {
   commandMap = new HashMap < String, Command > (); //<>//
@@ -90,6 +100,7 @@ void initCommandMap() {
   commandMap.put("pause", new Pause()); //<>// //<>//
   commandMap.put("resume", new Resume());
   commandMap.put("pushData", new PushData());
+  commandMap.put(UNKNOWN, new UnknownCommand());
 }
 
 
