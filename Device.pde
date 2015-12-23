@@ -11,12 +11,22 @@ class Device {
   String name; //lyne pour afficher sur ecran pour faire les commandes
   boolean pause;
 
+  // Message pour afficher du texte à l'écran
+  Message msg; // Message à afficher à l'écran
+  int messageAcc = 0; // Variable pour afficher des messages.
 
   Device(String _name) {
     name = _name;
+    
+    
+    msg = new Message ("PATATE");
+    msg.setVisibility(true);
+    msg.displayLength = 5000;
+    
     InitDisplayMap();
     pause = false;
-
+    
+    
   }
 
   void InitDisplayMap() {
@@ -25,19 +35,36 @@ class Device {
     displayMap.put("0", new Display("0")); // attention , gerer les dimension a partir du device si plusieurs
   }
   
-  void run() {
+  void run(int deltaTime) {
+    
+
+    
     if (pause) return;
+    
+    
+    
     displayMap.get("0").run(); // ne faire qu'un seul affichage par fenetre pour le depart // comment orendre le premier?
+    
+    displayMessage(deltaTime);
+    
   }
 
   void pushData( JSONData jd) {
     displayMap.get(jd.display).pushData(jd); // try catch
     // displayMap.get("di1").pushData(jd); // pour tester 
   }
-
-
-
-
+  
+  void displayMessage (int deltaTime) {
+    if (msg.getText() != "") {
+      
+      msg.update(deltaTime);
+      msg.show();
+    }
+  }
+  
+  void displaySetMessageText (String text) {
+    msg.setText(text);
+  }
 
   void flushQueue(JSONData jd) {
     displayMap.get(jd.display).flushQueue(); // try catch

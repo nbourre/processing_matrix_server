@@ -90,15 +90,15 @@ void draw() {
   //    DeviceMap.get(key);
   //   }
 
-  deviceMap.get(DEFAULT_DEVICE).run(); // en placer un par défaut dans le jdson
+  deviceMap.get(DEFAULT_DEVICE).run(deltaTime); // en placer un par défaut dans le jdson
 }
 
 //<>//
 void initCommandMap() {
-  commandMap = new HashMap < String, Command > (); //<>//
-  //<>// //<>//
+  commandMap = new HashMap < String, Command > ();
+  //<>//
   commandMap.put("flush", new Flush());
-  commandMap.put("pause", new Pause()); //<>// //<>//
+  commandMap.put("pause", new Pause()); //<>//
   commandMap.put("resume", new Resume());
   commandMap.put("pushData", new PushData());
   commandMap.put(UNKNOWN_COMMAND, new UnknownCommand());
