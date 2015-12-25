@@ -11,7 +11,12 @@ class Message {
   int alpha = 255;
   float alphaUpdate = 1f / (2000 / alphaInterval);
   
-  boolean visible = false;
+  boolean visible = false; // Indique si le message est visible
+  boolean startFading = false; // Une fois que la durée d'affichage est dépassé. On débute le fondu.
+  
+  int backgroundPaddingX = 50; // Espace entre le texte et l'arrière-plan
+  int backgroundPaddingY = 60; // Espace entre le texte et l'arrière-plan
+  
     
   Message (String text) {
     this.text = text;
@@ -34,6 +39,13 @@ class Message {
   
   void setVisibility (boolean show) {
     this.visible = show;
+    this.alpha = 255;
+    
+    println ("Setting visibility to : " + show);
+  }
+  
+  void setDisplayLength (int displayLength) {
+    this.displayLength = displayLength;
   }
   
   /**
@@ -41,37 +53,71 @@ class Message {
   */
   
   void update (int deltaTime) {
-
     
-    if (!visible) {
+    
+    if (!this.visible) {
       return;
     }
     
     displayAcc += deltaTime;
     alphaAcc += deltaTime;
     
-    if (displayAcc >= displayLength) {
-      displayAcc = 0;
-      visible = false;
-      alpha = 255;
-    }
+
     
-    if (alphaAcc >= alphaInterval) {
-      alphaAcc = 0;
-      alpha *= alphaUpdate;
-    }    
+    if (startFading) {
+      
+      if (alphaAcc >= alphaInterval) {
+        alphaAcc = 0;
+        
+        if (alpha < 1) {
+          this.visible = false;
+          alpha = 255;
+          startFading = false;        
+        } else {
+          alpha *= (1f - alphaUpdate);
+           //<>//
+        }
+      }    
+    } else {
+        if (displayAcc >= displayLength) {
+          displayAcc = 0;
+          alpha = 255;
+          startFading = true; 
+        }
+    }
   }
   
   void show () {
-   if (!visible) return;
+   if (!this.visible) {
+     return;
+   }
    
    if (this.text == "" || this.text == null) return;
+   
+   
    
    textSize (32);
    
    int txtWidth = int(textWidth(this.text));
    
+   noStroke();
+  
+   
+   // fond
+   pushMatrix();
+   
+   // Arrière-plan
+   translate (width / 2 - txtWidth / 2 - backgroundPaddingX, height / 2 - backgroundPaddingY);
+   
+   fill (50, alpha);
+   rect (0, 0, txtWidth + 2 * backgroundPaddingX, 100, 7);
+     
+   // Texte
+   translate (backgroundPaddingX, backgroundPaddingY);
+
    fill (200, 0, 0, alpha);
-   text (this.text, width / 2 - txtWidth / 2, height / 2);
+   text (this.text, 0, 0);
+   
+   popMatrix();
   }
 }

@@ -16,8 +16,7 @@ class Display {
   int displayAcc = 0;
   int previousTime = 0;
   
-  Message msg; // Message à afficher à l'écran
-  int messageAcc = 0; // Variable pour afficher des messages.
+
   
   int matWidth = 64;
   int matHeight = 64;
@@ -34,7 +33,6 @@ class Display {
     
     mat = new Matrix(matWidth, matHeight);
     
-    msg = new Message("");
   }  
   
   void run () {
@@ -47,7 +45,6 @@ class Display {
   
   void update(float deltaTime) {
     displayAcc += deltaTime;
-    messageAcc += deltaTime;
     
     if (pause) return;
     

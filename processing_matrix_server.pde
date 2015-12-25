@@ -3,7 +3,8 @@ import java.util.Map;
 import java.util.Set; //lyne
 import java.util.Iterator; //lyne
 
-static final String UNKNOWN = "unknown";
+static final String UNKNOWN_COMMAND = "unknown";
+static final String DEFAULT_DEVICE = "0";
 
 Server server;
 
@@ -52,24 +53,30 @@ void draw() {
 
       if (data != null) {
         data = data.replaceAll("~", "");
+        
+        try {
+          json = new JSONData(data);
 
-        json = new JSONData(data);
-
-        if (json.command != null) {
-          println ("Nb elements : " + json.data.split (" ").length);
-          // pourrait-on avoir un objet qui contient tout le jason sauf la string de départ pour passer à execute?
-          Command cmd = commandMap.get(json.command);
-          
-          /* On capture la commande null ici */
-          if (cmd == null) {
-            cmd = commandMap.get(UNKNOWN);
-          } 
-          
-          cmd.execute(deviceMap.get(json.device), json); //ajouter des try catch
+          if (json.command != null) {
+            println ("Nb elements : " + json.data.split (" ").length);
+            // pourrait-on avoir un objet qui contient tout le jason sauf la string de départ pour passer à execute?
+            Command cmd = commandMap.get(json.command);
             
-
-        } else {
-          println("unknown command : " + json.command);
+            /* On capture la commande null ici */
+            if (cmd == null) {
+              cmd = commandMap.get(UNKNOWN_COMMAND);
+            } 
+            
+            cmd.execute(deviceMap.get(json.device), json); //ajouter des try catch
+              
+  
+          } else {
+            println("unknown command : " + json.command);
+          }
+        } catch (Exception e) {
+          // Si la conversion ne fonctionne pas.
+          getDefaultDevice().showMessageText("Données de type inconnu");
+          
         }
 
         data = null;
@@ -89,32 +96,32 @@ void draw() {
   //    DeviceMap.get(key);
   //   }
 
-  deviceMap.get("0").run(); // en placer un par défaut dans le jdson
+  deviceMap.get(DEFAULT_DEVICE).run(deltaTime); // en placer un par défaut dans le jdson
 }
 
 //<>//
 void initCommandMap() {
-  commandMap = new HashMap < String, Command > (); //<>//
-  //<>// //<>//
+  commandMap = new HashMap < String, Command > ();
+  //<>//
   commandMap.put("flush", new Flush());
-  commandMap.put("pause", new Pause()); //<>// //<>//
+  commandMap.put("pause", new Pause()); //<>//
   commandMap.put("resume", new Resume());
   commandMap.put("pushData", new PushData());
-  commandMap.put(UNKNOWN, new UnknownCommand());
+  commandMap.put(UNKNOWN_COMMAND, new UnknownCommand());
 }
 
 
 void initDeviceMap() {
   deviceMap = new HashMap < String, Device > ();
 
-  deviceMap.put("0", new Device("0")); // attention , comment savoir si on peut en ajouter?
+  deviceMap.put(DEFAULT_DEVICE, new Device(DEFAULT_DEVICE)); // attention , comment savoir si on peut en ajouter?
 }
 
 
 
 void keyPressed() {
   if (key == ' ') {
-    deviceMap.get("d1").setPause(!(deviceMap.get("d1").getPause()));
+    deviceMap.get(DEFAULT_DEVICE).setPause(!(deviceMap.get(DEFAULT_DEVICE).getPause()));
     //display.pause = !display.pause;
   }
 
@@ -145,7 +152,7 @@ void keyPressed() {
     //    if (json.command != null) {
     //     println("command : " + json.command);
             println ("pushdata : " + json.command );
-        commandMap.get("pushdata").execute(  deviceMap.get("d1"), json); //ajouter des try catch pour tests direct
+        commandMap.get("pushdata").execute(  deviceMap.get(DEFAULT_DEVICE), json); //ajouter des try catch pour tests direct
 
     //   } else {
     //     println ("unknown command : " + json.command);
@@ -158,4 +165,8 @@ void keyPressed() {
 void serverEvent(Server s, Client c) {
   println("Nouveau client : " + c.ip());
 
+}
+
+Device getDefaultDevice() {
+  return deviceMap.get(DEFAULT_DEVICE);
 }
