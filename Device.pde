@@ -19,7 +19,7 @@ class Device {
     name = _name;
     
     
-    msg = new Message ("PATATE");
+    msg = new Message ("Démarrage");
     msg.setVisibility(true);
     msg.displayLength = 5000;
     
@@ -62,8 +62,15 @@ class Device {
     }
   }
   
-  void displaySetMessageText (String text) {
+  void showMessageText (String text) {
     msg.setText(text);
+    msg.setVisibility(true);
+  }
+  
+  void showMessageText (String text, int time) {
+    msg.setDisplayLength (time);
+    msg.setText(text);
+    msg.setVisibility(true);
   }
 
   void flushQueue(JSONData jd) {

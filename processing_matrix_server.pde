@@ -26,8 +26,8 @@ int deltaTime = 0;
 int previousTime = 0;
 
 void setup() {
-  //fullScreen();
-  size(640, 480);
+  fullScreen();
+  //size(640, 480);
 
   server = new Server(this, port);
 
@@ -53,24 +53,30 @@ void draw() {
 
       if (data != null) {
         data = data.replaceAll("~", "");
+        
+        try {
+          json = new JSONData(data);
 
-        json = new JSONData(data);
-
-        if (json.command != null) {
-          println ("Nb elements : " + json.data.split (" ").length);
-          // pourrait-on avoir un objet qui contient tout le jason sauf la string de départ pour passer à execute?
-          Command cmd = commandMap.get(json.command);
-          
-          /* On capture la commande null ici */
-          if (cmd == null) {
-            cmd = commandMap.get(UNKNOWN_COMMAND);
-          } 
-          
-          cmd.execute(deviceMap.get(json.device), json); //ajouter des try catch
+          if (json.command != null) {
+            println ("Nb elements : " + json.data.split (" ").length);
+            // pourrait-on avoir un objet qui contient tout le jason sauf la string de départ pour passer à execute?
+            Command cmd = commandMap.get(json.command);
             
-
-        } else {
-          println("unknown command : " + json.command);
+            /* On capture la commande null ici */
+            if (cmd == null) {
+              cmd = commandMap.get(UNKNOWN_COMMAND);
+            } 
+            
+            cmd.execute(deviceMap.get(json.device), json); //ajouter des try catch
+              
+  
+          } else {
+            println("unknown command : " + json.command);
+          }
+        } catch (Exception e) {
+          // Si la conversion ne fonctionne pas.
+          getDefaultDevice().showMessageText("Données de type inconnu");
+          
         }
 
         data = null;
@@ -159,4 +165,8 @@ void keyPressed() {
 void serverEvent(Server s, Client c) {
   println("Nouveau client : " + c.ip());
 
+}
+
+Device getDefaultDevice() {
+  return deviceMap.get(DEFAULT_DEVICE);
 }
