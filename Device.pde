@@ -89,6 +89,7 @@ class Device {
     // Parcourir les clés et faire run pour tous device;
     listKeysDisplayMap = displayMap.keySet(); // Obtenir la liste des clés
     itDisplayMap = listKeysDisplayMap.iterator();
+    
     while (itDisplayMap.hasNext()) {
       Object key = itDisplayMap.next(); //ajouter try catch
       displayMap.get(key).setPause(value);
@@ -96,5 +97,25 @@ class Device {
     }
     pause = value;
 
+  }
+  
+  void remove(JSONData jd) {
+    if (jd.args.length > 1) {
+      Display d = displayMap.get(jd.display);
+      
+      try {
+        int matIndex = parseInt(jd.args[1]);
+        
+        if (matIndex < d.matrices.size()) {
+          d.removeMatrix(matIndex);
+        } else {
+          showMessageText("Index trop grand!");
+        }
+        
+
+      } catch (Exception ex) {
+        showMessageText("Problème avec la commande \"" + jd.commandRaw);
+      }
+    }
   }
 }

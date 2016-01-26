@@ -14,6 +14,7 @@ class JSONData {
   int cols;
   String device;
   String display;
+  String commandRaw;
   
   JSONData (String js) {
     this.jsonString = js;
@@ -26,6 +27,7 @@ class JSONData {
   void interpret () {
     
     args = json.hasKey("command") ? json.getString("command").split(" ") : null;
+    commandRaw = json.hasKey("command") ? json.getString("command") : null;
     
     command = args != null ? args[0] : null;
 

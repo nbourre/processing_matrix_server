@@ -97,7 +97,9 @@ class Display {
   }
   
   void removeMatrix(int index) {
-    matrices.remove(index);
+    if (index < matrices.size()) {
+      matrices.remove(index);
+    }
   }
   
   void flushQueue() {
