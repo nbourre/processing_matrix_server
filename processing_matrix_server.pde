@@ -58,7 +58,7 @@ void draw() {
           json = new JSONData(data);
 
           if (json.command != null) {
-            println ("Nb elements : " + json.data.split (" ").length);
+            //println ("Nb elements : " + json.data.split (" ").length);
             // pourrait-on avoir un objet qui contient tout le jason sauf la string de départ pour passer à execute?
             Command cmd = commandMap.get(json.command);
             
