@@ -17,8 +17,7 @@ class Device {
 
   Device(String _name) {
     name = _name;
-    
-    
+       
     msg = new Message ("Démarrage");
     msg.setVisibility(true);
     msg.displayLength = 5000;
@@ -38,10 +37,8 @@ class Device {
   void run(int deltaTime) {
     
 
-    
     if (pause) return;
-    
-    
+      
     
     displayMap.get("0").run(); // ne faire qu'un seul affichage par fenetre pour le depart // comment orendre le premier?
     
@@ -51,7 +48,6 @@ class Device {
 
   void pushData( JSONData jd) {
     displayMap.get(jd.display).pushData(jd); // try catch
-    // displayMap.get("di1").pushData(jd); // pour tester 
   }
   
   void displayMessage (int deltaTime) {
@@ -62,11 +58,14 @@ class Device {
     }
   }
   
+  // Permet d'afficher un message sur le device
   void showMessageText (String text) {
     msg.setText(text);
     msg.setVisibility(true);
   }
   
+  // Permet d'afficher un message sur le device
+  // avec un temps limite
   void showMessageText (String text, int time) {
     msg.setDisplayLength (time);
     msg.setText(text);
@@ -80,10 +79,12 @@ class Device {
   void clear() {
     //mat.clear();
   }
+  
   boolean getPause() {
 
     return pause;
   }
+  
   void setPause(boolean value) {
     // Parcourir les clés et faire run pour tous device;
     listKeysDisplayMap = displayMap.keySet(); // Obtenir la liste des clés
