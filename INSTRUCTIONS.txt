@@ -1,10 +1,7 @@
 Cette application permet à une seconde application client de se connecter et d'envoyer des matrices de données qui représente qui sont ensuite représenté en tant que pixel art.
 
-<<<<<<< HEAD
 Un exemple de client est disponible à cette adresse : https://github.com/nbourre/processing_matrix_client
 
-=======
->>>>>>> 052fa59f67fb8820fd8d34ca90791731ab653de6
 Les données reçues doivent être en format JSON et le stream d'envoie doit terminer avec le caractère "~".
 
 Propriétés du JSON
@@ -13,14 +10,12 @@ command :
 	type : String
 	Description : Les commandes possibles sont pushData, flush, pause, resume
 
-<<<<<<< HEAD
 	flush : Permet de "flusher la file d'attente"
 	pause : Permet de mettre une pause à l'animation
 	resume : Permet de remettre en fonction la file d'attente
 	pushData : Permet d'envoyer de nouvelle donnée à la file d'attente
 
-=======
->>>>>>> 052fa59f67fb8820fd8d34ca90791731ab653de6
+
 bytePerPixel :
 	type : int
 	Description : Nombre d'octets par pixel soit 1 ou 3
