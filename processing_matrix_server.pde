@@ -1,4 +1,4 @@
-import processing.net.*;
+import processing.net.*; //<>// //<>//
 import java.util.Map;
 import java.util.Set; //lyne
 import java.util.Iterator; //lyne
@@ -26,8 +26,8 @@ int deltaTime = 0;
 int previousTime = 0;
 
 void setup() {
-  fullScreen();
-  //size(640, 480);
+  //fullScreen();
+  size(640, 480);
 
   server = new Server(this, port);
 
