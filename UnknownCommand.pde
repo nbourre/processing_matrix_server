@@ -1,4 +1,3 @@
-
 class UnknownCommand implements Command {
   
   UnknownCommand () {

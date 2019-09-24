@@ -1,5 +1,4 @@
-
-class Message {
+class Message { //<>//
   String text;
   
   int displayLength; // Durée pour afficher le message

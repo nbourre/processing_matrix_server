@@ -1,8 +1,10 @@
-class Append implements Command {
+class RemoveAt implements Command {
   
-  void execute () {
+  RemoveAt () {
   }
   
+  
   public void execute(Device d, JSONData jd){
+    
   }
 }

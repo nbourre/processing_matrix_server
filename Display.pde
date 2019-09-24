@@ -86,12 +86,9 @@ class Display {
     
     // valider les informations sur la matrice
  
-      Matrix  m = new Matrix(jd.cols, jd.rows, jd.bytePerPixel); //enleve pour test
-     //  Matrix  m=new Matrix(7,7); // pour tester lyne
-     
-      addMatrix(m);
-    
-      m.update(jd.data);
+    Matrix  m = new Matrix(jd.cols, jd.rows, jd.bytePerPixel); //enleve pour test
+    addMatrix(m);
+    m.update(jd.data);
 
   }
   
@@ -100,7 +97,9 @@ class Display {
   }
   
   void removeMatrix(int index) {
-    matrices.remove(index);
+    if (index < matrices.size()) {
+      matrices.remove(index);
+    }
   }
   
   void flushQueue() {

@@ -1,18 +1,24 @@
-Cette application permet à une seconde application client de se connecter et d'envoyer des matrices de données qui représente qui sont ensuite représenté en tant que pixel art.
+Cette application permet ï¿½ une seconde application client de se connecter et d'envoyer des matrices de donnï¿½es qui reprï¿½sente qui sont ensuite reprï¿½sentï¿½ en tant que pixel art.
 
 Exemple de client : https://github.com/nbourre/processing_matrix_client (ou https://github.com/nbourre)
 
-Les données reçues doivent être en format JSON et le stream d'envoie doit terminer avec le caractère "~".
+Les donnï¿½es reï¿½ues doivent ï¿½tre en format JSON et le stream d'envoie doit terminer avec le caractï¿½re "~".
 
 IP : 172.22.101.0
 Port : 32999
 
 
-Propriétés du JSON
+Propriï¿½tï¿½s du JSON
 
 command :
 	type : String
 	Description : Les commandes possibles sont pushData, flush, pause, resume
+
+	flush : Permet de "flusher la file d'attente"
+	pause : Permet de mettre une pause ï¿½ l'animation
+	resume : Permet de remettre en fonction la file d'attente
+	pushData : Permet d'envoyer de nouvelle donnï¿½e ï¿½ la file d'attente
+
 
 bytePerPixel :
 	type : int
@@ -24,13 +30,13 @@ cols :
 
 rows :
 	type : int
-	Description : Nombre de rangées
+	Description : Nombre de rangï¿½es
 	
 data :
 	type : String
-	Description : 	Chaîne de données en String qui représente la valeur de chaque pixel.
-					Chaque valeur est séparée par un espace " ".
-					La dimension de la chaîne est la cols x rows x bytePerPixel.
+	Description : 	Chaï¿½ne de donnï¿½es en String qui reprï¿½sente la valeur de chaque pixel.
+					Chaque valeur est sï¿½parï¿½e par un espace " ".
+					La dimension de la chaï¿½ne est la cols x rows x bytePerPixel.
 	Exemple : 	"127 0 255" si bytePerPixel = 1 donne 3 pixels avec respectivement 127, 0 et 255 comme valeur.
 							si bytePerPixel = 3 donne 1 pixel avec la couleur RGB (127, 0, 255).
 							
