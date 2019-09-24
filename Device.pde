@@ -37,13 +37,9 @@ class Device {
   
   void run(int deltaTime) {
     
-
-    
     if (pause) return;
     
-    
-    
-    displayMap.get("0").run(); // ne faire qu'un seul affichage par fenetre pour le depart // comment orendre le premier?
+    displayMap.get("0").run(); // ne faire qu'un seul affichage par fenetre pour le depart // comment prendre le premier?
     
     displayMessage(deltaTime);
     
@@ -54,6 +50,7 @@ class Device {
     // displayMap.get("di1").pushData(jd); // pour tester 
   }
   
+  
   void displayMessage (int deltaTime) {
     if (msg.getText() != "") {
       
@@ -61,6 +58,7 @@ class Device {
       msg.show();
     }
   }
+  
   
   void showMessageText (String text) {
     msg.setText(text);
@@ -80,10 +78,12 @@ class Device {
   void clear() {
     //mat.clear();
   }
+  
   boolean getPause() {
 
     return pause;
   }
+  
   void setPause(boolean value) {
     // Parcourir les clés et faire run pour tous device;
     listKeysDisplayMap = displayMap.keySet(); // Obtenir la liste des clés

@@ -36,6 +36,7 @@ class Cell {
     pushMatrix();
     translate (x, y);
     fill (fillColor);
+    //ellipse (0, 0, w, h);
     rect (0, 0, w, h);
     popMatrix();
   }

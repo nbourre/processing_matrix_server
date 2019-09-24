@@ -22,12 +22,14 @@ Iterator itDeviceMap; //lyne
 
 int dataInterval = 50;
 int dataAcc = 0;
+
+int currentTime = millis();
 int deltaTime = 0;
 int previousTime = 0;
 
 void setup() {
-  //fullScreen();
-  size(640, 480);
+  fullScreen();
+  //size(640, 480);
 
   server = new Server(this, port);
 
@@ -37,66 +39,11 @@ void setup() {
 }
 
 void draw() {
-  deltaTime = millis() - previousTime;
-  previousTime = millis();
+  currentTime = millis();
+  deltaTime = currentTime - previousTime;
+  previousTime = currentTime;
 
-  Client client = server.available();
-
-  if (client != null) {
-    dataAcc += deltaTime;
-
-
-    if (dataAcc >= dataInterval) {
-      dataAcc = 0;
-
-      data = client.readStringUntil('~'); // Le ~ permet d'indiquer au serveur la fin des données envoyé par le client
-
-      if (data != null) {
-        data = data.replaceAll("~", "");
-        
-        try {
-          json = new JSONData(data);
-
-          if (json.command != null) {
-            println ("Nb elements : " + json.data.split (" ").length);
-            // pourrait-on avoir un objet qui contient tout le jason sauf la string de départ pour passer à execute?
-            Command cmd = commandMap.get(json.command);
-            
-            /* On capture la commande null ici */
-            if (cmd == null) {
-              cmd = commandMap.get(UNKNOWN_COMMAND);
-            } 
-            
-            cmd.execute(deviceMap.get(json.device), json); //ajouter des try catch
-              
-  
-          } else {
-            println("unknown command : " + json.command);
-          }
-        } catch (Exception e) {
-          // Si la conversion ne fonctionne pas.
-          getDefaultDevice().showMessageText("Données de type inconnu");
-          
-        }
-
-        data = null;
-        client.clear();
-      }
-    }
-
-  }
-
-
-  // listKeysDeviceMap=deviceMap.keySet();  // Obtenir la liste des clés
-  // itDeviceMap=listKeysDeviceMap.iterator();
-  // Parcourir les clés et faire run pour tous device;
-  //  while( itDeviceMap.hasNext())
-  //  {
-  //    Object key=  itDeviceMap.next(); //ajouter try catch
-  //    DeviceMap.get(key);
-  //   }
-
-  deviceMap.get(DEFAULT_DEVICE).run(deltaTime); // en placer un par défaut dans le jdson
+  update (deltaTime);
 }
 
 //<>//
@@ -160,6 +107,65 @@ void keyPressed() {
   }
 }
 
+void update(int deltaTime) {
+  Client client = server.available();
+
+  if (client != null) {
+    dataAcc += deltaTime;
+
+
+    if (dataAcc >= dataInterval) {
+      dataAcc = 0;
+
+      data = client.readStringUntil('~'); // Le ~ permet d'indiquer au serveur la fin des données envoyé par le client
+
+      if (data != null) {
+        data = data.replaceAll("~", "");
+        
+        try {
+          json = new JSONData(data);
+
+          if (json.command != null) {
+            println ("Nb elements : " + json.data.split (" ").length);
+            // pourrait-on avoir un objet qui contient tout le jason sauf la string de départ pour passer à execute?
+            Command cmd = commandMap.get(json.command);
+            
+            /* On capture la commande null ici */
+            if (cmd == null) {
+              cmd = commandMap.get(UNKNOWN_COMMAND);
+            } 
+            
+            cmd.execute(deviceMap.get(json.device), json); //ajouter des try catch
+              
+  
+          } else {
+            println("unknown command : " + json.command);
+          }
+        } catch (Exception e) {
+          // Si la conversion ne fonctionne pas.
+          getDefaultDevice().showMessageText("Données de type inconnu");
+          
+        }
+
+        data = null;
+        client.clear();
+      }
+    }
+
+  }
+
+
+  // listKeysDeviceMap=deviceMap.keySet();  // Obtenir la liste des clés
+  // itDeviceMap=listKeysDeviceMap.iterator();
+  // Parcourir les clés et faire run pour tous device;
+  //  while( itDeviceMap.hasNext())
+  //  {
+  //    Object key=  itDeviceMap.next(); //ajouter try catch
+  //    DeviceMap.get(key);
+  //   }
+
+  deviceMap.get(DEFAULT_DEVICE).run(deltaTime); // en placer un par défaut dans le json
+}
 
 
 void serverEvent(Server s, Client c) {
